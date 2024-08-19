@@ -1,45 +1,34 @@
-import { useRef } from "react";
-import { login} from "../features/userSlice"
 import { Link } from "react-router-dom";
-import { axiosClient } from "../utils/axiosClients"
-import { useDispatch } from "react-redux";
 
-const Login = () => {
-  const loginRef = useRef()
-  const passwordRef = useRef()
-  const dispatch = useDispatch()
-
-  const handleSubmit = (e) => {
-    e.preventDefault()
-
-    axiosClient.post("/auth/login", {
-      username: loginRef.current.value,
-      password: passwordRef.current.value
-    }).then((data) => dispatch(login(data))
-    ).catch((error) => console.error(error)
-    )
-
-  }
-
+const RegisterPage = () => {
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="max-w-md w-full bg-white p-8 border border-gray-200 rounded-lg shadow-lg">
-        <h2 className="text-2xl font-bold mb-6 text-center">Login</h2>
-        <form onSubmit={handleSubmit}>
+        <h2 className="text-2xl font-bold mb-6 text-center">Register</h2>
+        <form>
+          <div className="mb-4">
+            <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">Name</label>
+            <input
+              type="text"
+              id="name"
+              className="input input-bordered w-full"
+              placeholder="Enter your name"
+              required
+            />
+          </div>
           <div className="mb-4">
             <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">Email</label>
             <input
-              ref={loginRef}
+              type="email"
               id="email"
               className="input input-bordered w-full"
               placeholder="Enter your email"
               required
             />
           </div>
-          <div className="mb-6">
+          <div className="mb-4">
             <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">Password</label>
             <input
-              ref={passwordRef}
               type="password"
               id="password"
               className="input input-bordered w-full"
@@ -47,14 +36,15 @@ const Login = () => {
               required
             />
           </div>
-          <button type="submit" className="btn btn-primary w-full">Login</button>
+          
+          <button type="submit" className="btn btn-primary w-full">Register</button>
         </form>
         <div className="text-center mt-4">
-          <Link to="/register" className="text-blue-600 hover:underline">You haven't got accaunt yet?</Link>
+          <p className="text-sm text-gray-600">Already have an account? <Link to="/login" className="text-blue-600 hover:underline">Login here</Link></p>
         </div>
       </div>
     </div>
   );
 };
 
-export default Login;
+export default RegisterPage;
